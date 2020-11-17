@@ -16,6 +16,7 @@ class __SingleInputDialog extends StatefulWidget {
   final int minLines;
   final int maxLines;
   final Function validator;
+  Text note;
 
   __SingleInputDialog({
     this.title = "Input",
@@ -32,6 +33,7 @@ class __SingleInputDialog extends StatefulWidget {
     this.minLines,
     this.maxLines,
     this.validator,
+    this.note=null,
   });
 
   @override
@@ -90,6 +92,8 @@ class __SingleInputDialogState extends State<__SingleInputDialog> {
                 style: Theme.of(context).dialogTheme.titleTextStyle,
               ),
               Divider(),
+              if(widget.note!=null)
+                widget.note,
               TextField(
                 obscureText: widget.obscure,
                 autofocus: true,
@@ -104,6 +108,7 @@ class __SingleInputDialogState extends State<__SingleInputDialog> {
                   labelText: widget.label,
                   hintText: widget.value,
                   errorText: _isValid,
+                  labelStyle: TextStyle()
                 ),
               ),
             ],
@@ -143,6 +148,7 @@ singleInputDialog(
   BuildContext context, {
   String title = "Input",
   String label = "Input Field",
+      Text note=null,
   String value = "",
   String positiveText = "Submit",
   Function(String) positiveAction,
@@ -175,6 +181,7 @@ singleInputDialog(
       minLines: minLines,
       maxLines: maxLines,
       validator: validator,
+      note: note,
     ),
   );
 }

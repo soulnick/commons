@@ -20,36 +20,36 @@ class __AlertDialog extends StatefulWidget {
   static const INFO = Color(0xff3c3f41);
 
   final Color color;
-  final String title,
-      message,
-      positiveText,
-      negativeText,
-      neutralText,
-      confirmationText;
+  final String title, message, positiveText, negativeText, neutralText, confirmationText;
   final Function positiveAction, negativeAction, neutralAction;
   final bool showNeutralButton;
   final AlertDialogIcon alertDialogIcon;
   final bool confirm;
   final TextAlign textAlign;
   final Widget customIcon;
+  final Container msgCont;
+  final TextStyle titleStyle;
+  final TextStyle messageStyle;
 
-  __AlertDialog({
-    @required this.color,
-    @required this.title,
-    @required this.message,
-    this.showNeutralButton,
-    this.neutralText,
-    this.neutralAction,
-    this.positiveText,
-    this.positiveAction,
-    this.negativeText,
-    this.negativeAction,
-    this.alertDialogIcon,
-    this.customIcon,
-    this.confirm,
-    this.textAlign,
-    this.confirmationText,
-  });
+  __AlertDialog(
+      {@required this.color,
+      @required this.title,
+      @required this.message,
+      this.showNeutralButton,
+      this.neutralText,
+      this.neutralAction,
+      this.positiveText,
+      this.positiveAction,
+      this.negativeText,
+      this.negativeAction,
+      this.alertDialogIcon,
+      this.customIcon,
+      this.confirm,
+      this.textAlign,
+      this.confirmationText,
+      this.msgCont,
+      this.titleStyle,
+      this.messageStyle});
 
   @override
   __AlertDialogState createState() => __AlertDialogState();
@@ -200,12 +200,12 @@ class __AlertDialogState extends State<__AlertDialog> {
         Container(
           width: _screenWidth >= 600 ? 500 : _screenWidth,
           padding: EdgeInsets.only(
-            top: 45.0 + 16.0,
+            top: 22.0,
             bottom: 16.0,
             left: 16.0,
             right: 16.0,
           ),
-          margin: EdgeInsets.only(top: 55.0),
+          margin: EdgeInsets.only(top: 0.0),
           decoration: new BoxDecoration(
             color: Theme.of(context).dialogBackgroundColor,
             shape: BoxShape.rectangle,
@@ -224,24 +224,25 @@ class __AlertDialogState extends State<__AlertDialog> {
               if (widget.title.isNotEmpty)
                 Text(
                   widget.title,
-                  style: TextStyle(
-                    fontSize: 24.0,
-                    fontWeight: FontWeight.w700,
-                  ),
+                  textAlign: TextAlign.center,
+                  style: widget.titleStyle != null
+                      ? widget.titleStyle
+                      : TextStyle(
+                          fontSize: 24.0,
+                          fontWeight: FontWeight.w700,
+                        ),
                 ),
               SizedBox(height: 16.0),
               Flexible(
                 fit: FlexFit.loose,
                 child: SingleChildScrollView(
-                  child: Text(
-                    widget.message,
-                    textAlign: widget.textAlign == null
-                        ? TextAlign.center
-                        : widget.textAlign,
-                    style: TextStyle(
-                      fontSize: 16.0,
-                    ),
-                  ),
+                  child: widget.msgCont != null
+                      ? widget.msgCont
+                      : Text(
+                          widget.message,
+                          textAlign: widget.textAlign == null ? TextAlign.center : widget.textAlign,
+                          style: widget.messageStyle != null ? widget.messageStyle : TextStyle(fontSize: 16.0,),
+                        ),
                 ),
               ),
               SizedBox(height: 16.0),
@@ -256,8 +257,7 @@ class __AlertDialogState extends State<__AlertDialog> {
                         });
                       },
                     ),
-                    Text(widget.confirmationText ??
-                        "Check this box for confirmation!"),
+                    Text(widget.confirmationText ?? "Check this box for confirmation!"),
                   ],
                 ),
               Align(
@@ -270,14 +270,12 @@ class __AlertDialogState extends State<__AlertDialog> {
                     widget.showNeutralButton
                         ? FlatButton(
                             onPressed: () {
-                              Navigator.of(context)
-                                  .pop(); // To close the dialog
+                              Navigator.of(context).pop(); // To close the dialog
                               widget.neutralAction();
                             },
                             child: Text(
                               widget.neutralText,
-                              style: TextStyle(
-                                  color: Theme.of(context).accentColor),
+                              style: TextStyle(color: Theme.of(context).accentColor),
                             ),
                           )
                         : SizedBox(),
@@ -287,7 +285,7 @@ class __AlertDialogState extends State<__AlertDialog> {
             ],
           ),
         ),
-        Positioned(
+        /*Positioned(
           left: 16.0,
           right: 16.0,
           child: CircleAvatar(
@@ -297,32 +295,28 @@ class __AlertDialogState extends State<__AlertDialog> {
                 ? widget.customIcon == null ? Text("") : widget.customIcon
                 : _dialogIcon,
           ),
-        ),
+        ),*/
       ],
     );
   }
 }
 
 /// Generic dialog function
-dialog(
-  BuildContext context,
-  Color color,
-  String title,
-  String message,
-  bool showNeutralButton,
-  bool closeOnBackPress, {
-  String neutralText,
-  Function neutralAction,
-  String positiveText,
-  Function positiveAction,
-  String negativeText,
-  Function negativeAction,
-  AlertDialogIcon icon,
-  confirm = false,
-  textAlign: TextAlign.center,
-  Widget customIcon,
-  String confirmationText,
-}) {
+dialog(BuildContext context, Color color, String title, String message, bool showNeutralButton, bool closeOnBackPress,
+    {String neutralText,
+    Function neutralAction,
+    String positiveText,
+    Function positiveAction,
+    String negativeText,
+    Function negativeAction,
+    AlertDialogIcon icon,
+    confirm = false,
+    textAlign: TextAlign.center,
+    Widget customIcon,
+    String confirmationText,
+    Container msgCont,
+    TextStyle titleStyle,
+    TextStyle messageStyle}) {
   return showDialog(
     barrierDismissible: closeOnBackPress,
     context: context,
@@ -344,6 +338,9 @@ dialog(
         textAlign: textAlign,
         customIcon: customIcon,
         confirmationText: confirmationText,
+        msgCont: msgCont,
+        titleStyle: titleStyle,
+        messageStyle:messageStyle
       ),
     ),
   );
@@ -452,21 +449,22 @@ warningDialog(
 }
 
 /// Info Dialog
-infoDialog(
-  BuildContext context,
-  String message, {
-  showNeutralButton = true,
-  String positiveText,
-  Function positiveAction,
-  String negativeText,
-  Function negativeAction,
-  String neutralText = "Okay",
-  Function neutralAction,
-  title = "Info",
-  closeOnBackPress = false,
-  icon = AlertDialogIcon.INFO_ICON,
-  textAlign: TextAlign.center,
-}) {
+infoDialog(BuildContext context, String message,
+    {showNeutralButton = true,
+    String positiveText,
+    Function positiveAction,
+    String negativeText,
+    Function negativeAction,
+    String neutralText = "Okay",
+    Function neutralAction,
+    title = "Info",
+    closeOnBackPress = false,
+    icon = AlertDialogIcon.INFO_ICON,
+    textAlign: TextAlign.center,
+    Container msgCont,
+    TextStyle titleStyle,
+    TextStyle messageStyle
+    }) {
   return dialog(
     context,
     __AlertDialog.INFO,
@@ -482,6 +480,9 @@ infoDialog(
     negativeAction: negativeAction,
     icon: icon,
     textAlign: textAlign,
+    msgCont: msgCont,
+    titleStyle: titleStyle,
+    messageStyle:messageStyle
   );
 }
 
@@ -524,8 +525,7 @@ confirmationDialog(
 }
 
 /// Waiting Dialog
-waitDialog(BuildContext context,
-    {message = "Please wait...", Duration duration}) {
+waitDialog(BuildContext context, {message = "Please wait...", Duration duration}) {
   var dialog = Dialog(
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(16.0),
@@ -537,8 +537,7 @@ waitDialog(BuildContext context,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          Container(
-              margin: EdgeInsets.all(8), child: CircularProgressIndicator()),
+          Container(margin: EdgeInsets.all(8), child: CircularProgressIndicator()),
           Text(message),
         ],
       ),
