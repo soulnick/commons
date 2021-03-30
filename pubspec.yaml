@@ -11,17 +11,17 @@ dependencies:
   flutter:
     sdk: flutter
 
-  package_info: '>=0.4.0+13 <2.0.0'
+  package_info: ^2.0.0
   device_info: ^0.4.2+4
   get_version: ^0.2.0+1
-  url_launcher: ^5.4.1
+  url_launcher: ^6.0.3
   share: ^0.6.4+3
-  shared_preferences: ^0.5.7
+  shared_preferences: ^2.0.5
   oktoast: ^2.3.0
   progress_indicators: ^0.1.4
   date_format: ^1.0.8
   time: ^1.2.0
-  intl: ^0.17.0-nullsafety.2
+  intl: ^0.17.0
   data_connection_checker: ^0.3.4
   http: ^0.12.1
 
