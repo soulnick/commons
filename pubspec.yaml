@@ -21,7 +21,7 @@ dependencies:
   progress_indicators: ^0.1.4
   date_format: ^1.0.8
   time: ^1.2.0
-  intl: ^0.16.1
+  intl: ^0.17.0-nullsafety.2
   data_connection_checker: ^0.3.4
   http: ^0.12.1
 
