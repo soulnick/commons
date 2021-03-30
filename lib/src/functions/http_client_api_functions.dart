@@ -77,7 +77,7 @@ Future<Response> postRequest(String url, Map header, {Map body, log: true}) {
     print(">>>>>>>>>>>>>>>>>>>>>> POST HEADERS $header");
     if (body != null) print(">>>>>>>>>>>>>>>>>>>>>> POST PRAMS $body");
   }
-  return http.post(url, headers: header, body: body, encoding: encodingUTF8());
+  return http.post(Uri.parse(url), headers: header, body: body, encoding: encodingUTF8());
 }
 
 Future<Response> postJsonRequest(String url, Map header, Map body,
@@ -87,7 +87,7 @@ Future<Response> postJsonRequest(String url, Map header, Map body,
     print(">>>>>>>>>>>>>>>>>>>>>> POST HEADERS $header");
     print(">>>>>>>>>>>>>>>>>>>>>> JSON PRAM ${json.encode(body)}");
   }
-  return http.post(url,
+  return http.post(Uri.parse(url),
       headers: header, body: json.encode(body), encoding: encodingUTF8());
 }
 
@@ -105,7 +105,7 @@ Future<Response> getRequest(String url, Map header,
     var uri = Uri.https(domain, path, body);
     return http.get(uri, headers: header);
   } else {
-    return http.get(url, headers: header);
+    return http.get(Uri.parse(url), headers: header);
   }
 }
 
