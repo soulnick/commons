@@ -6,7 +6,7 @@ class ListViewScreen<T> extends StatefulWidget {
   final String title;
   final List<T> items;
   final Widget Function(T, int, String) bindViewItem;
-  final bool Function(T, String) searchCriteria;
+  final bool Function(T, String)? searchCriteria;
 
   ListViewScreen(this.title, this.items, this.bindViewItem,
       {this.searchCriteria});
@@ -16,7 +16,7 @@ class ListViewScreen<T> extends StatefulWidget {
 }
 
 class _ListViewScreenState<T> extends State<ListViewScreen> {
-  List<T> _filteredList;
+  late List<T> _filteredList;
   bool _showSearchBar = false;
   String _searchableText = "";
   final _searchBarFieldController = TextEditingController();
@@ -65,7 +65,7 @@ class _ListViewScreenState<T> extends State<ListViewScreen> {
   void initState() {
     super.initState();
     setState(() {
-      _filteredList = widget.items;
+      _filteredList = widget.items as List<T>;
     });
   }
 
@@ -95,7 +95,7 @@ class _ListViewScreenState<T> extends State<ListViewScreen> {
                 _searchableText = "";
               });
               _searchBarFieldController.clear();
-              _filteredList = widget.items;
+              _filteredList = widget.items as List<T>;
             } else {
               pop(context);
             }
@@ -116,14 +116,11 @@ class _ListViewScreenState<T> extends State<ListViewScreen> {
                   if (widget.searchCriteria != null) {
                     if (value != null && value.isNotEmpty) {
                       setState(() {
-                        _filteredList = widget.items
-                            .where((item) =>
-                                widget.searchCriteria(item, _searchableText))
-                            .toList();
+                        _filteredList = widget.items.where((item) => widget.searchCriteria!(item, _searchableText)).toList () as List<T>;
                       });
                     } else {
                       setState(() {
-                        _filteredList = widget.items;
+                        _filteredList = widget.items as List<T>;
                       });
                     }
                   }
@@ -146,7 +143,7 @@ class _ListViewScreenState<T> extends State<ListViewScreen> {
               if (_showSearchBar) {
                 _searchableText = "";
                 _searchBarFieldController.clear();
-                _filteredList = widget.items;
+                _filteredList = widget.items  as List<T>;
               }
 
               setState(() {

@@ -59,14 +59,14 @@ class DateTimeAPI {
 
   static String format(
     DateTime dateTime, {
-    String stringFormat,
-    List<String> listFormat,
+    String? stringFormat,
+    List<String>? listFormat,
   }) {
     if (stringFormat != null) {
       return formatFromString(dateTime, stringFormat);
     }
     if (stringFormat != null) {
-      return formatDate(dateTime, listFormat);
+      return formatDate(dateTime, listFormat!);
     }
     assert(false,
         "One of format parameters (stringFormat, listFormat) is required to format");

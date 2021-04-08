@@ -7,10 +7,10 @@ class __SelectionDialog extends StatefulWidget {
   final String title;
   final Set<Data> items;
   final Function onSubmit;
-  final Set<Data> selectedItems;
-  final bool multiSelect;
-  final bool searchable;
-  final String submitButtonText;
+  final Set<Data>? selectedItems;
+  final bool? multiSelect;
+  final bool? searchable;
+  final String? submitButtonText;
 
   __SelectionDialog(
     this.title,
@@ -30,17 +30,17 @@ class ___SelectionDialogState extends State<__SelectionDialog> {
   bool _showSearchField = false;
   String _searchQuery = "";
   Set<Data> _selectedItems = Set();
-  Set<Data> _filteredList;
+  late Set<Data> _filteredList;
   final _searchBarFieldController = TextEditingController();
   FocusNode _searchBarFieldFocusNode = FocusNode();
 
   _optionItem(BuildContext context, Data data) {
-    return widget.multiSelect
+    return widget.multiSelect==true
         ? CheckboxListTile(
             value: _selectedItems.contains(data),
             onChanged: (value) {
               setState(() {
-                data.selected = value;
+                data.selected = value!;
               });
               if (data.selected) {
                 _selectedItems.add(data);
@@ -62,7 +62,7 @@ class ___SelectionDialogState extends State<__SelectionDialog> {
   }
 
   _options() {
-    var listItems = List<Widget>();
+    var listItems = <Widget>[];
     _filteredList.forEach((item) {
       listItems.add(_optionItem(context, item));
     });
@@ -70,7 +70,7 @@ class ___SelectionDialogState extends State<__SelectionDialog> {
   }
 
   _getTitle() {
-    if (widget.searchable) {
+    if (widget.searchable==true) {
       return Row(
         children: <Widget>[
           Expanded(
@@ -203,12 +203,12 @@ class ___SelectionDialogState extends State<__SelectionDialog> {
                   ),
                 ),
               ),
-        if (widget.multiSelect)
+        if (widget.multiSelect==true)
           Divider(
             color: Colors.black,
             height: 5,
           ),
-        if (widget.multiSelect)
+        if (widget.multiSelect==true)
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
@@ -248,7 +248,7 @@ class ___SelectionDialogState extends State<__SelectionDialog> {
     super.initState();
     _filteredList = widget.items;
     if (widget.selectedItems != null) {
-      _selectedItems = widget.selectedItems;
+      _selectedItems = widget.selectedItems!;
     }
   }
 

@@ -19,17 +19,17 @@ class __AlertDialog extends StatefulWidget {
   static const ERROR = Color(0xffc0392b);
   static const INFO = Color(0xff3c3f41);
 
-  final Color color;
-  final String title, message, positiveText, negativeText, neutralText, confirmationText;
-  final Function positiveAction, negativeAction, neutralAction;
-  final bool showNeutralButton;
-  final AlertDialogIcon alertDialogIcon;
-  final bool confirm;
-  final TextAlign textAlign;
-  final Widget customIcon;
-  final Container msgCont;
-  final TextStyle titleStyle;
-  final TextStyle messageStyle;
+  final Color? color;
+  final String? title, message, positiveText, negativeText, neutralText, confirmationText;
+  final Function? positiveAction, negativeAction, neutralAction;
+  final bool? showNeutralButton;
+  final AlertDialogIcon? alertDialogIcon;
+  final bool? confirm;
+  final TextAlign? textAlign;
+  final Widget? customIcon;
+  final Container? msgCont;
+  final TextStyle? titleStyle;
+  final TextStyle? messageStyle;
 
   __AlertDialog(
       {@required this.color,
@@ -57,7 +57,7 @@ class __AlertDialog extends StatefulWidget {
 
 class __AlertDialogState extends State<__AlertDialog> {
   bool _confirmDeleteAction = false;
-  double _screenWidth;
+  late double _screenWidth;
 
   final successIcon = Icon(
     Icons.check,
@@ -117,20 +117,20 @@ class __AlertDialogState extends State<__AlertDialog> {
   }
 
   _positiveActionPerform() {
-    if (widget.confirm) {
+    if (widget.confirm==true) {
       if (_confirmDeleteAction) {
         Navigator.of(context).pop(); // To close the dialog
-        widget.positiveAction();
+        widget.positiveAction?.call();
       }
     } else {
       Navigator.of(context).pop(); // To close the dialog
-      widget.positiveAction();
+      widget.positiveAction?.call();
     }
   }
 
   _getPositiveButtonColor() {
     var color = Theme.of(context).accentColor;
-    if (widget.confirm) {
+    if (widget.confirm==true) {
       if (_confirmDeleteAction) {
         color = Colors.red;
       } else {
@@ -145,7 +145,7 @@ class __AlertDialogState extends State<__AlertDialog> {
       return FlatButton(
         onPressed: _positiveActionPerform,
         child: Text(
-          widget.positiveText,
+          widget.positiveText!,
           style: TextStyle(
             color: _getPositiveButtonColor(),
           ),
@@ -160,10 +160,10 @@ class __AlertDialogState extends State<__AlertDialog> {
       return FlatButton(
         onPressed: () {
           Navigator.of(context).pop(); // To close the dialog
-          widget.negativeAction();
+          widget.negativeAction?.call();
         },
         child: Text(
-          widget.negativeText,
+          widget.negativeText!,
           style: TextStyle(color: Theme.of(context).accentColor),
         ),
       );
@@ -221,9 +221,9 @@ class __AlertDialogState extends State<__AlertDialog> {
           child: Column(
             mainAxisSize: MainAxisSize.min, // To make the card compact
             children: <Widget>[
-              if (widget.title.isNotEmpty)
+              if (widget.title?.isNotEmpty==true)
                 Text(
-                  widget.title,
+                  widget.title!,
                   textAlign: TextAlign.center,
                   style: widget.titleStyle != null
                       ? widget.titleStyle
@@ -239,21 +239,21 @@ class __AlertDialogState extends State<__AlertDialog> {
                   child: widget.msgCont != null
                       ? widget.msgCont
                       : Text(
-                          widget.message,
+                          widget.message!,
                           textAlign: widget.textAlign == null ? TextAlign.center : widget.textAlign,
                           style: widget.messageStyle != null ? widget.messageStyle : TextStyle(fontSize: 16.0,),
                         ),
                 ),
               ),
               SizedBox(height: 16.0),
-              if (widget.confirm)
+              if (widget.confirm==true)
                 Row(
                   children: <Widget>[
                     Checkbox(
                       value: _confirmDeleteAction,
                       onChanged: (value) {
                         setState(() {
-                          _confirmDeleteAction = value;
+                          _confirmDeleteAction = value??false;
                         });
                       },
                     ),
@@ -267,14 +267,14 @@ class __AlertDialogState extends State<__AlertDialog> {
                   children: <Widget>[
                     _negativeButton(context),
                     _positiveButton(context),
-                    widget.showNeutralButton
+                    widget.showNeutralButton==true
                         ? FlatButton(
                             onPressed: () {
                               Navigator.of(context).pop(); // To close the dialog
-                              widget.neutralAction();
+                              widget.neutralAction?.call();
                             },
                             child: Text(
-                              widget.neutralText,
+                              widget.neutralText??"",
                               style: TextStyle(color: Theme.of(context).accentColor),
                             ),
                           )
@@ -303,20 +303,20 @@ class __AlertDialogState extends State<__AlertDialog> {
 
 /// Generic dialog function
 dialog(BuildContext context, Color color, String title, String message, bool showNeutralButton, bool closeOnBackPress,
-    {String neutralText,
-    Function neutralAction,
-    String positiveText,
-    Function positiveAction,
-    String negativeText,
-    Function negativeAction,
-    AlertDialogIcon icon,
+    {String? neutralText,
+    Function? neutralAction,
+    String? positiveText,
+    Function? positiveAction,
+    String? negativeText,
+    Function? negativeAction,
+    AlertDialogIcon? icon,
     confirm = false,
     textAlign: TextAlign.center,
-    Widget customIcon,
-    String confirmationText,
-    Container msgCont,
-    TextStyle titleStyle,
-    TextStyle messageStyle}) {
+    Widget? customIcon,
+    String? confirmationText,
+    Container? msgCont,
+    TextStyle? titleStyle,
+    TextStyle? messageStyle}) {
   return showDialog(
     barrierDismissible: closeOnBackPress,
     context: context,
@@ -351,12 +351,12 @@ successDialog(
   BuildContext context,
   String message, {
   showNeutralButton = true,
-  String positiveText,
-  Function positiveAction,
-  String negativeText,
-  Function negativeAction,
+  String? positiveText,
+  Function? positiveAction,
+  String? negativeText,
+  Function? negativeAction,
   String neutralText = "Okay",
-  Function neutralAction,
+  Function? neutralAction,
   title = "Success",
   closeOnBackPress = true,
   icon = AlertDialogIcon.SUCCESS_ICON,
@@ -385,12 +385,12 @@ errorDialog(
   BuildContext context,
   String message, {
   showNeutralButton = true,
-  String positiveText,
-  Function positiveAction,
-  String negativeText,
-  Function negativeAction,
+  String? positiveText,
+  Function? positiveAction,
+  String? negativeText,
+  Function? negativeAction,
   String neutralText = "Okay",
-  Function neutralAction,
+  Function? neutralAction,
   title = "Error",
   closeOnBackPress = false,
   icon = AlertDialogIcon.ERROR_ICON,
@@ -419,12 +419,12 @@ warningDialog(
   BuildContext context,
   String message, {
   showNeutralButton = true,
-  String positiveText,
-  Function positiveAction,
-  String negativeText,
-  Function negativeAction,
+  String? positiveText,
+  Function? positiveAction,
+  String? negativeText,
+  Function? negativeAction,
   String neutralText = "Okay",
-  Function neutralAction,
+  Function? neutralAction,
   title = "Warning",
   closeOnBackPress = false,
   icon = AlertDialogIcon.WARNING_ICON,
@@ -451,19 +451,19 @@ warningDialog(
 /// Info Dialog
 infoDialog(BuildContext context, String message,
     {showNeutralButton = true,
-    String positiveText,
-    Function positiveAction,
-    String negativeText,
-    Function negativeAction,
+    String? positiveText,
+    Function? positiveAction,
+    String? negativeText,
+    Function? negativeAction,
     String neutralText = "Okay",
-    Function neutralAction,
+    Function? neutralAction,
     title = "Info",
     closeOnBackPress = false,
     icon = AlertDialogIcon.INFO_ICON,
     textAlign: TextAlign.center,
-    Container msgCont,
-    TextStyle titleStyle,
-    TextStyle messageStyle
+    Container? msgCont,
+    TextStyle? titleStyle,
+    TextStyle? messageStyle
     }) {
   return dialog(
     context,
@@ -491,12 +491,12 @@ confirmationDialog(
   BuildContext context,
   String message, {
   showNeutralButton = true,
-  String positiveText,
-  Function positiveAction,
-  String negativeText,
-  Function negativeAction,
+  String? positiveText,
+  Function? positiveAction,
+  String? negativeText,
+  Function? negativeAction,
   String neutralText = "Cancel",
-  Function neutralAction,
+  Function? neutralAction,
   title = "Confirmation?",
   closeOnBackPress = false,
   icon = AlertDialogIcon.HELP_ICON,
@@ -525,7 +525,7 @@ confirmationDialog(
 }
 
 /// Waiting Dialog
-waitDialog(BuildContext context, {message = "Please wait...", Duration duration}) {
+waitDialog(BuildContext context, {message = "Please wait...", Duration? duration}) {
   var dialog = Dialog(
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(16.0),

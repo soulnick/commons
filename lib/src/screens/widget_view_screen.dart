@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class WidgetViewScreen extends StatelessWidget {
   final String title;
   final Widget child;
-  final List<Widget> appBarActions;
+  final List<Widget>? appBarActions;
   final bool centerTitle;
 
   WidgetViewScreen(this.title, this.child,

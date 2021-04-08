@@ -7,7 +7,7 @@ Future<T> push<T extends Object>(BuildContext context, Widget route) {
     MaterialPageRoute(
       builder: (c) => route,
     ),
-  );
+  ) as Future<T>;
 }
 
 /// Navigator push replacement function
@@ -17,17 +17,17 @@ Future<T> replaceWith<T extends Object>(BuildContext context, Widget route) {
     MaterialPageRoute(
       builder: (c) => route,
     ),
-  );
+  ) as Future<T>;
 }
 
 /// Navigator pop function
-pop<T extends Object>(BuildContext context, [T result]) {
+pop<T extends Object>(BuildContext context, [T? result]) {
   var canPop = _canPop(context);
   assert(canPop, "Cannot pop initial route.");
   Navigator.of(context).pop<T>(result);
 }
 
-mustPop<T extends Object>(BuildContext context, [T result]) {
+mustPop<T extends Object>(BuildContext context, [T? result]) {
   Navigator.of(context).pop<T>(result);
 }
 
@@ -45,11 +45,11 @@ extension NavigatorExtension on State {
     return replaceWith(context, route);
   }
 
-  popThis<T extends Object>([T result]) {
+  popThis<T extends Object>([T? result]) {
     pop(context, result);
   }
 
-  mustPopThis<T extends Object>([T result]) {
+  mustPopThis<T extends Object>([T? result]) {
     mustPop(context, result);
   }
 

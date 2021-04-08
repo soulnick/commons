@@ -103,23 +103,20 @@ Widget highlightTitleTextWidget(
   BuildContext context,
   String string,
   String word, {
-  TextStyle stringStyle,
+  TextStyle? stringStyle,
   bool boldTitle = true,
-  TextStyle wordStyle,
+  TextStyle? wordStyle,
 }) {
   if (stringStyle == null) {
     if (boldTitle) {
-      stringStyle = Theme.of(context)
-          .textTheme
-          .subtitle1
-          .copyWith(fontWeight: FontWeight.bold);
+      stringStyle = Theme.of(context).textTheme.subtitle1?.copyWith(fontWeight: FontWeight.bold);
     } else {
       stringStyle = Theme.of(context).textTheme.subtitle1;
     }
   }
 
   if (wordStyle == null) {
-    wordStyle = stringStyle.copyWith(
+    wordStyle = stringStyle?.copyWith(
       color: Theme.of(context).accentColor,
       fontWeight: FontWeight.bold,
       fontStyle: FontStyle.italic,
@@ -149,18 +146,15 @@ Widget highlightSubTitleTextWidget(
   BuildContext context,
   String string,
   String word, {
-  TextStyle stringStyle,
-  TextStyle wordStyle,
+  TextStyle? stringStyle,
+  TextStyle? wordStyle,
 }) {
   if (stringStyle == null) {
-    stringStyle = Theme.of(context)
-        .textTheme
-        .bodyText2
-        .copyWith(color: Theme.of(context).textTheme.caption.color);
+    stringStyle = Theme.of(context)?.textTheme.bodyText2?.copyWith(color: Theme.of(context)?.textTheme.caption?.color);
   }
 
   if (wordStyle == null) {
-    wordStyle = stringStyle.copyWith(
+    wordStyle = stringStyle?.copyWith(
       color: Theme.of(context).accentColor,
       fontWeight: FontWeight.bold,
       fontStyle: FontStyle.italic,
@@ -185,11 +179,11 @@ Widget highlightSubTitleTextWidget(
   }
 }
 
-List<TextSpan> _getSpans(String text, String matchWord, TextStyle style) {
+List<TextSpan> _getSpans(String text, String matchWord, TextStyle? style) {
   List<TextSpan> spans = [];
   int spanBoundary = 0;
 
-  List<String> values;
+  late List<String> values;
   var length = 0;
   if (matchWord.contains(' ')) {
     values = matchWord.split(' ');

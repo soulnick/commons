@@ -10,13 +10,13 @@ import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class StackTraceScreen extends StatefulWidget {
-  final String stackTrace;
-  final String errorMessage;
-  final String className;
-  final String mailTo;
-  final String subject;
-  final bool deviceInfo;
-  final bool shareButton;
+  final String? stackTrace;
+  final String? errorMessage;
+  final String? className;
+  final String? mailTo;
+  final String? subject;
+  final bool? deviceInfo;
+  final bool? shareButton;
 
   StackTraceScreen(
       {this.stackTrace,
@@ -51,19 +51,19 @@ class _StackTraceScreenState extends State<StackTraceScreen> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: widget.deviceInfo != null && widget.deviceInfo ? 3 : 2,
+      length: widget.deviceInfo != null && widget.deviceInfo! ? 3 : 2,
       child: Scaffold(
         appBar: AppBar(
           title: Text("Stack Trace"),
           actions: <Widget>[
-            widget.mailTo != null && widget.mailTo.isNotEmpty
+            widget.mailTo != null && widget.mailTo!.isNotEmpty
                 ? IconButton(
                     icon: Icon(Icons.send),
                     onPressed: _mailTo,
                     tooltip: "Send error report",
                   )
                 : SizedBox(),
-            widget.shareButton != null && widget.shareButton
+            widget.shareButton != null && widget.shareButton!
                 ? IconButton(
                     icon: Icon(Icons.share),
                     onPressed: _share,
@@ -81,7 +81,7 @@ class _StackTraceScreenState extends State<StackTraceScreen> {
                 icon: Icon(Icons.error),
                 text: "Error Message",
               ),
-              if (widget.deviceInfo != null && widget.deviceInfo)
+              if (widget.deviceInfo != null && widget.deviceInfo!)
                 Tab(
                   icon: Icon(Icons.perm_device_information),
                   text: "Device Info",
@@ -103,7 +103,7 @@ class _StackTraceScreenState extends State<StackTraceScreen> {
                 child: Text("${widget.errorMessage}"),
               ),
             ),
-            if (widget.deviceInfo != null && widget.deviceInfo)
+            if (widget.deviceInfo != null && widget.deviceInfo!)
               SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),

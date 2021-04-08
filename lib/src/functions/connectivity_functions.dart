@@ -1,14 +1,14 @@
 import 'dart:io';
 
-import 'package:data_connection_checker/data_connection_checker.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 /// ConnectionChecker used for internet connection listener
 class ConnectionChecker {
-  DataConnectionChecker _instance;
+  InternetConnectionChecker? _instance;
 
   getInstance() {
     if (_instance == null) {
-      _instance = DataConnectionChecker();
+      _instance = InternetConnectionChecker();
       return this;
     }
     return this;
@@ -16,21 +16,21 @@ class ConnectionChecker {
 
   setDuration(Duration duration) {
     getInstance();
-    _instance.checkInterval = duration;
+    _instance!.checkInterval = duration;
     return this;
   }
 
   listener(
-      {Function connected, Function disconnected, Function onError}) async {
+      {Function? connected, Function? disconnected, Function? onError}) async {
     getInstance();
-    return _instance.onStatusChange.listen(
-      (DataConnectionStatus status) {
+    return _instance!.onStatusChange.listen(
+      (InternetConnectionStatus status) {
         switch (status) {
-          case DataConnectionStatus.connected:
+          case InternetConnectionStatus.connected:
             print("Connected.");
-            connected();
+            connected?.call();
             break;
-          case DataConnectionStatus.disconnected:
+          case InternetConnectionStatus.disconnected:
             print("Disconnected.");
             if (disconnected != null) {
               disconnected();
@@ -38,7 +38,7 @@ class ConnectionChecker {
             break;
         }
       },
-      onError: (Object error, [StackTrace stackTrace]) {
+      onError: (Object error, [StackTrace? stackTrace]) {
         print("Connection Error!");
         if (onError != null) {
           onError(error, stackTrace);

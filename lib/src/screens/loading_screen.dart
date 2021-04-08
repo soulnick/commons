@@ -12,7 +12,7 @@ Widget loadingScreen(
   BuildContext context, {
   message = "Loading",
   closeOnBackPres = false,
-  Duration duration,
+  Duration? duration,
   loadingType: LoadingType.SCALING,
 }) {
   if (duration != null) {

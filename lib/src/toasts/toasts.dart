@@ -4,10 +4,10 @@ import 'package:oktoast/oktoast.dart';
 toast(
   String message, {
   position = ToastPosition.bottom,
-  Color backgroundColor,
+  Color? backgroundColor,
   textColor: Colors.black,
   fontSize: 16.0,
-  Duration duration,
+  Duration? duration,
 }) {
   showToast(
     message,

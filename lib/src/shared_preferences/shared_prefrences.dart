@@ -79,7 +79,7 @@ class Prefs {
 }
 
 class Preferences {
-  static SharedPreferences _prefsInstance;
+  static late SharedPreferences _prefsInstance;
   static bool _initialize = false;
 
   Preferences() {
@@ -95,7 +95,6 @@ class Preferences {
   }
 
   void dispose() {
-    _prefsInstance = null;
     _initialize = false;
   }
 
@@ -174,7 +173,7 @@ class Preferences {
 
   Future<bool> remove(String key) async {
     _assert();
-    return _prefsInstance.getBool(key) ?? Future.value(false);
+    return _prefsInstance.remove(key) ?? Future.value(false);
   }
 
   Future<bool> clear() async {

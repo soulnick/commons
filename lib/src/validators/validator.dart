@@ -20,7 +20,7 @@ class Patterns {
 }
 
 class Validator {
-  String _text;
+  String _text="";
   bool _valid = true;
   String _errorMsg = '';
 
@@ -60,7 +60,7 @@ class Validator {
     return this;
   }
 
-  Validator minLength(int min, {String error}) {
+  Validator minLength(int min, {String? error}) {
     if (_isOptional()) return this;
     var v = this._text.length < min;
     if (v) {
@@ -74,7 +74,7 @@ class Validator {
     return this;
   }
 
-  Validator maxLength(int max, {String error}) {
+  Validator maxLength(int max, {String? error}) {
     var v = this._text.length > max;
     if (v) {
       this._valid = false;
@@ -87,7 +87,7 @@ class Validator {
     return this;
   }
 
-  Validator username({String error}) {
+  Validator username({String? error}) {
     if (_isOptional()) return this;
     RegExp regExp = new RegExp(Patterns.PATTERN_USERNAME);
     var v = regExp.hasMatch(this._text);
@@ -102,7 +102,7 @@ class Validator {
     return this;
   }
 
-  Validator email({String error}) {
+  Validator email({String? error}) {
     if (_isOptional()) return this;
     RegExp regExp = new RegExp(Patterns.PATTERN_EMAIL);
     var v = regExp.hasMatch(this._text);
@@ -117,7 +117,7 @@ class Validator {
     return this;
   }
 
-  Validator usernameOrEmail({String error}) {
+  Validator usernameOrEmail({String? error}) {
     if (_isOptional()) return this;
 
     RegExp regExp = new RegExp(Patterns.PATTERN_EMAIL);
@@ -137,7 +137,7 @@ class Validator {
     return this;
   }
 
-  Validator number({bool negative = false, String error}) {
+  Validator number({bool negative = false, String? error}) {
     bool v = Validator.isValidNumber(_text, negative: negative);
     if (!v) {
       this._valid = v;
@@ -150,7 +150,7 @@ class Validator {
     return this;
   }
 
-  Validator float({bool negative = false, String error}) {
+  Validator float({bool negative = false, String? error}) {
     bool v = Validator.isValidFloat(_text, negative: negative);
     if (!v) {
       this._valid = v;
@@ -163,7 +163,7 @@ class Validator {
     return this;
   }
 
-  Validator double({bool negative = false, String error}) {
+  Validator double({bool negative = false, String? error}) {
     bool v = Validator.isValidFloat(_text, negative: negative);
     if (!v) {
       this._valid = v;

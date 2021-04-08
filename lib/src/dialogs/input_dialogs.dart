@@ -8,15 +8,15 @@ class __SingleInputDialog extends StatefulWidget {
   final String positiveText;
   final String negativeText;
   final String neutralText;
-  final Function positiveAction;
-  final Function negativeAction;
-  final Function neutralAction;
-  final TextInputType keyboardType;
+  final Function? positiveAction;
+  final Function? negativeAction;
+  final Function? neutralAction;
+  final TextInputType? keyboardType;
   final bool obscure;
-  final int minLines;
-  final int maxLines;
-  final Function validator;
-  Text note;
+  final int? minLines;
+  final int? maxLines;
+  final Function? validator;
+  Text? note;
 
   __SingleInputDialog({
     this.title = "Input",
@@ -43,19 +43,19 @@ class __SingleInputDialog extends StatefulWidget {
 class __SingleInputDialogState extends State<__SingleInputDialog> {
   final _inputController = TextEditingController();
   final FocusNode _focusNode = FocusNode();
-  String _isValid;
+  String? _isValid;
 
   _validateInput() {
     if (widget.validator != null) {
       setState(() {
-        _isValid = widget.validator(_inputController.text.trim());
+        _isValid = widget.validator!(_inputController.text.trim());
       });
       if (_isValid == null) {
-        widget.positiveAction(_inputController.text.trim());
+        widget.positiveAction!(_inputController.text.trim());
         Navigator.pop(context);
       }
     } else if (_isValid == null && widget.positiveAction != null) {
-      widget.positiveAction(_inputController.text.trim());
+      widget.positiveAction!(_inputController.text.trim());
       Navigator.pop(context);
     } else {
       Navigator.pop(context);
@@ -93,7 +93,7 @@ class __SingleInputDialogState extends State<__SingleInputDialog> {
               ),
               Divider(),
               if(widget.note!=null)
-                widget.note,
+                widget.note!,
               TextField(
                 obscureText: widget.obscure,
                 autofocus: true,
@@ -120,7 +120,7 @@ class __SingleInputDialogState extends State<__SingleInputDialog> {
             onPressed: () {
               Navigator.pop(context);
               if (widget.neutralAction != null) {
-                widget.neutralAction();
+                widget.neutralAction!();
               }
             },
           ),
@@ -129,7 +129,7 @@ class __SingleInputDialogState extends State<__SingleInputDialog> {
               child: Text(widget.negativeText),
               onPressed: () {
                 Navigator.pop(context);
-                widget.negativeAction();
+                widget.negativeAction!();
               },
             ),
           if (widget.positiveAction != null)
@@ -148,20 +148,20 @@ singleInputDialog(
   BuildContext context, {
   String title = "Input",
   String label = "Input Field",
-      Text note=null,
+      Text? note,
   String value = "",
   String positiveText = "Submit",
-  Function(String) positiveAction,
+  Function(String)? positiveAction,
   String negativeText = "Clear",
-  Function negativeAction,
+  Function? negativeAction,
   String neutralText = "Close",
-  Function neutralAction,
+  Function? neutralAction,
   TextInputType keyboardType = TextInputType.text,
   bool autoClose = true,
   bool obscure = false,
-  int minLines,
-  int maxLines,
-  String Function(String) validator,
+  int? minLines,
+  int? maxLines,
+  String Function(String)? validator,
 }) {
   return showDialog(
     context: context,

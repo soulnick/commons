@@ -71,7 +71,7 @@ acceptJsonWithAuth(String authKey) =>
 
 encodingUTF8() => Encoding.getByName("utf-8");
 
-Future<Response> postRequest(String url, Map header, {Map body, log: true}) {
+Future<Response> postRequest(String url, Map<String,String> header, {Map? body, log: true}) {
   if (log) {
     print(">>>>>>>>>>>>>>>>>>>>>> POST $url");
     print(">>>>>>>>>>>>>>>>>>>>>> POST HEADERS $header");
@@ -80,7 +80,7 @@ Future<Response> postRequest(String url, Map header, {Map body, log: true}) {
   return http.post(Uri.parse(url), headers: header, body: body, encoding: encodingUTF8());
 }
 
-Future<Response> postJsonRequest(String url, Map header, Map body,
+Future<Response> postJsonRequest(String url, Map<String,String> header, Map? body,
     {log: true}) {
   if (log) {
     print(">>>>>>>>>>>>>>>>>>>>>> POST $url");
@@ -91,8 +91,8 @@ Future<Response> postJsonRequest(String url, Map header, Map body,
       headers: header, body: json.encode(body), encoding: encodingUTF8());
 }
 
-Future<Response> getRequest(String url, Map header,
-    {Map<String, String> body, log: true}) {
+Future<Response> getRequest(String url, Map<String,String> header,
+    {Map? body, log: true}) {
   if (log) {
     print(">>>>>>>>>>>>>>>>>>>>>> GET $url");
     print(">>>>>>>>>>>>>>>>>>>>>> GET HEADERS $header");
@@ -102,26 +102,26 @@ Future<Response> getRequest(String url, Map header,
     String domainUrl = url.replaceFirst('http://', '');
     String domain = domainUrl.substring(0, domainUrl.indexOf('/'));
     String path = domainUrl.substring(domainUrl.indexOf('/'));
-    var uri = Uri.https(domain, path, body);
+    var uri = Uri.https(domain, path, body as Map<String,dynamic>);
     return http.get(uri, headers: header);
   } else {
     return http.get(Uri.parse(url), headers: header);
   }
 }
 
-Future<Response> request(
+Future<Response?> request(
   BuildContext context,
   State<StatefulWidget> state,
   RequestMethod requestMethod,
   String url,
-  Map headers, {
-  Map prams,
+  Map<String,String> headers, {
+  Map? prams,
   bool dialog = false,
   bool log = true,
   bool showErrorDialogs = true,
 }) async {
   bool _dialog = dialog;
-  Response response;
+  Response? response;
   try {
     if (requestMethod == RequestMethod.POST) {
       response = await postRequest(url, headers, body: prams, log: log);

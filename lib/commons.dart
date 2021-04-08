@@ -38,5 +38,5 @@ export 'package:progress_indicators/progress_indicators.dart';
 export 'package:date_format/date_format.dart';
 export 'package:time/time.dart';
 export 'package:intl/intl.dart';
-export 'package:data_connection_checker/data_connection_checker.dart';
+export 'package:internet_connection_checker/internet_connection_checker.dart';
 export 'package:http/http.dart';

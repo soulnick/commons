@@ -2,9 +2,9 @@ import 'package:commons/commons.dart';
 import 'package:flutter/material.dart';
 
 class Option {
-  final Text title;
-  final Icon icon;
-  final Function action;
+  final Text? title;
+  final Icon? icon;
+  final Function? action;
 
   Option(
     this.title,
@@ -12,42 +12,37 @@ class Option {
     this.action,
   );
 
-  static item(Text title, {Icon icon, Function action}) {
+  static item(Text title, {Icon? icon, Function? action}) {
     return Option(title, icon, action);
   }
 
-  static edit({Text title, Icon icon, Function action}) {
+  static edit({Text? title, Icon? icon, Function? action}) {
     return Option(title ?? Text("Edit"), icon ?? Icon(Icons.edit), action);
   }
 
-  static view({Text title, Icon icon, Function action}) {
+  static view({Text? title, Icon? icon, Function? action}) {
     return Option(
         title ?? Text("View"), icon ?? Icon(Icons.visibility), action);
   }
 
-  static details({Text title, Icon icon, Function action}) {
+  static details({Text? title, Icon? icon, Function? action}) {
     return Option(title ?? Text("Details"), icon ?? Icon(Icons.menu), action);
   }
 
-  static delete({Text title, Icon icon, Function action}) {
+  static delete({Text? title, Icon? icon, Function? action}) {
     return Option(
         title ??
             Text(
               "Delete",
               style: TextStyle(color: Colors.red),
             ),
-        icon ??
-            Icon(
-              Icons.delete,
-              color: Colors.red,
-            ),
-        action);
+        icon ?? Icon(Icons.delete, color: Colors.red,), action);
   }
 }
 
 class OptionsDialog extends StatefulWidget {
-  final String title;
-  final List<Option> options;
+  final String? title;
+  final List<Option>? options;
 
   OptionsDialog({this.title, this.options});
 
@@ -60,7 +55,7 @@ class _OptionsDialogState extends State<OptionsDialog> {
     return ListTile(
       onTap: () {
         pop(context);
-        if (option.action != null) option.action();
+        if (option.action != null) option.action!();
       },
       leading: option.icon,
       title: option.title,
@@ -68,8 +63,8 @@ class _OptionsDialogState extends State<OptionsDialog> {
   }
 
   _options() {
-    var listItems = List<Widget>();
-    widget.options.forEach((item) {
+    var listItems = <Widget>[];
+    widget.options?.forEach((item) {
       listItems.add(_optionItem(context, item));
     });
     return listItems;
@@ -82,7 +77,7 @@ class _OptionsDialogState extends State<OptionsDialog> {
         Padding(
           padding: const EdgeInsets.all(16),
           child: Text(
-            widget.title,
+            widget.title??"",
             textAlign: TextAlign.center,
             style: TextStyle(
               fontWeight: FontWeight.bold,

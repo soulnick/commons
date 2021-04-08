@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class __RadioListDialog<T extends Data> extends StatefulWidget {
   final String title;
   final Set<T> dataSet;
-  final Data selectedItem;
+  final Data? selectedItem;
   final Function(T) onSubmit;
 
   __RadioListDialog(
@@ -20,7 +20,7 @@ class __RadioListDialog<T extends Data> extends StatefulWidget {
 }
 
 class ___RadioListDialogState<T extends Data> extends State<__RadioListDialog> {
-  T _selectedItem;
+  T? _selectedItem;
   int _radioGroupId = 0;
 
   _optionItem(BuildContext context, T data) {
@@ -29,7 +29,7 @@ class ___RadioListDialogState<T extends Data> extends State<__RadioListDialog> {
       onChanged: (value) {
         print(value);
         setState(() {
-          _radioGroupId = value;
+          _radioGroupId = value as int;
           _selectedItem = data;
         });
       },
@@ -39,9 +39,9 @@ class ___RadioListDialogState<T extends Data> extends State<__RadioListDialog> {
   }
 
   _options() {
-    var listItems = List<Widget>();
+    var listItems = <Widget>[];
     widget.dataSet.forEach((item) {
-      listItems.add(_optionItem(context, item));
+      listItems.add(_optionItem(context, item as T));
     });
     return listItems;
   }
@@ -85,7 +85,7 @@ class ___RadioListDialogState<T extends Data> extends State<__RadioListDialog> {
           children: <Widget>[
             FlatButton(
               onPressed: () {
-                if (widget.onSubmit != null) widget.onSubmit(_selectedItem);
+                if (widget.onSubmit != null) widget.onSubmit(_selectedItem as Data);
                 pop(context); // To close the dialog
               },
               child: Text("确定"),
@@ -101,8 +101,8 @@ class ___RadioListDialogState<T extends Data> extends State<__RadioListDialog> {
     super.initState();
     setState(() {
       if (widget.selectedItem != null) {
-        _selectedItem = widget.selectedItem;
-        _radioGroupId = widget.selectedItem.id;
+        _selectedItem = widget.selectedItem as T;
+        _radioGroupId = widget.selectedItem!.id;
       }
     });
   }
@@ -124,7 +124,7 @@ radioListDialog<T extends Data>(
   String title,
   Set<T> dataSet,
   Function(T) onSubmit, {
-  Data selectedItem,
+  Data? selectedItem,
   autoClose = true,
 }) {
   return showDialog(
