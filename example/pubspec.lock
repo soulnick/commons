@@ -124,9 +124,11 @@ packages:
   get_version:
     dependency: transitive
     description:
-      name: get_version
-      url: "https://pub.flutter-io.cn"
-    source: hosted
+      path: "."
+      ref: HEAD
+      resolved-ref: e4c18798d2a2651a8f4bf843499c90b4c45c5a8a
+      url: "https://github.com/Creky/get_version.git"
+    source: git
     version: "0.2.2"
   http:
     dependency: transitive
