@@ -302,7 +302,7 @@ class __AlertDialogState extends State<__AlertDialog> {
 }
 
 /// Generic dialog function
-dialog(BuildContext context, Color color, String title, String message, bool showNeutralButton, bool closeOnBackPress,
+dialog(BuildContext context, Color color, String title, String? message, bool showNeutralButton, bool closeOnBackPress,
     {String? neutralText,
     Function? neutralAction,
     String? positiveText,
