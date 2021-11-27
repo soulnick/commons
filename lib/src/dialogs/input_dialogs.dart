@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 /// Private __SingleInputDialog class
 class __SingleInputDialog extends StatefulWidget {
   final String title;
-  final String label;
+  final String? label;
   final String value;
   final String positiveText;
   final String negativeText;
@@ -147,7 +147,7 @@ class __SingleInputDialogState extends State<__SingleInputDialog> {
 singleInputDialog(
   BuildContext context, {
   String title = "Input",
-  String label = "Input Field",
+  String? label = "Input Field",
       Text? note,
   String value = "",
   String positiveText = "Submit",
@@ -161,7 +161,7 @@ singleInputDialog(
   bool obscure = false,
   int? minLines,
   int? maxLines,
-  String Function(String)? validator,
+  String? Function(String)? validator,
 }) {
   return showDialog(
     context: context,

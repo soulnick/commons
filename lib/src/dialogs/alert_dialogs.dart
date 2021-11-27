@@ -34,7 +34,7 @@ class __AlertDialog extends StatefulWidget {
   __AlertDialog(
       {@required this.color,
       @required this.title,
-      @required this.message,
+      this.message,
       this.showNeutralButton,
       this.neutralText,
       this.neutralAction,
@@ -449,7 +449,7 @@ warningDialog(
 }
 
 /// Info Dialog
-infoDialog(BuildContext context, String message,
+infoDialog(BuildContext context, String? message,
     {showNeutralButton = true,
     String? positiveText,
     Function? positiveAction,
