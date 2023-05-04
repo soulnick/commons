@@ -83,7 +83,7 @@ class ___RadioListDialogState<T extends Data> extends State<__RadioListDialog> {
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
-            FlatButton(
+            MaterialButton(
               onPressed: () {
                 if (widget.onSubmit != null) widget.onSubmit(_selectedItem as Data);
                 pop(context); // To close the dialog
@@ -100,7 +100,11 @@ class ___RadioListDialogState<T extends Data> extends State<__RadioListDialog> {
   void initState() {
     super.initState();
     setState(() {
-      if (widget.selectedItem != null) {
+      if (widget.selectedItem == null) {
+        final item = widget.dataSet.first;
+        _selectedItem = item as T;
+        _radioGroupId = item!.id;
+      }else {
         _selectedItem = widget.selectedItem as T;
         _radioGroupId = widget.selectedItem!.id;
       }

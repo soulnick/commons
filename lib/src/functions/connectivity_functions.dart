@@ -15,8 +15,8 @@ class ConnectionChecker {
   }
 
   setDuration(Duration duration) {
-    getInstance();
-    _instance!.checkInterval = duration;
+    //getInstance();
+    //_instance!.checkInterval = duration;
     return this;
   }
 

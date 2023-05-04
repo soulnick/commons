@@ -115,7 +115,7 @@ class __SingleInputDialogState extends State<__SingleInputDialog> {
           ),
         ),
         actions: <Widget>[
-          FlatButton(
+          MaterialButton(
             child: Text('${widget.neutralText ?? "Close"}'),
             onPressed: () {
               Navigator.pop(context);
@@ -125,7 +125,7 @@ class __SingleInputDialogState extends State<__SingleInputDialog> {
             },
           ),
           if (widget.negativeAction != null)
-            FlatButton(
+            MaterialButton(
               child: Text(widget.negativeText),
               onPressed: () {
                 Navigator.pop(context);
@@ -133,7 +133,7 @@ class __SingleInputDialogState extends State<__SingleInputDialog> {
               },
             ),
           if (widget.positiveAction != null)
-            FlatButton(
+            MaterialButton(
               child: Text(widget.positiveText),
               onPressed: _validateInput,
             ),

@@ -212,7 +212,7 @@ class ___SelectionDialogState extends State<__SelectionDialog> {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
-              FlatButton(
+              MaterialButton(
                 onPressed: () {
                   setState(() {
                     _filteredList.forEach((item) => item.selected = false);
@@ -221,7 +221,7 @@ class ___SelectionDialogState extends State<__SelectionDialog> {
                 },
                 child: Text("Un-Select All"),
               ),
-              FlatButton(
+              MaterialButton(
                 onPressed: () {
                   setState(() {
                     _filteredList.forEach((item) => item.selected = true);
@@ -230,7 +230,7 @@ class ___SelectionDialogState extends State<__SelectionDialog> {
                 },
                 child: Text("Select All"),
               ),
-              FlatButton(
+              MaterialButton(
                 onPressed: () {
                   if (widget.onSubmit != null) widget.onSubmit(_selectedItems);
                   pop(context); // To close the dialog

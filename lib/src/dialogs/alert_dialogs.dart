@@ -142,7 +142,7 @@ class __AlertDialogState extends State<__AlertDialog> {
 
   _positiveButton(BuildContext context) {
     if (widget.positiveText != null && widget.positiveAction != null) {
-      return FlatButton(
+      return MaterialButton(
         onPressed: _positiveActionPerform,
         child: Text(
           widget.positiveText!,
@@ -157,7 +157,7 @@ class __AlertDialogState extends State<__AlertDialog> {
 
   _negativeButton(BuildContext context) {
     if (widget.negativeText != null && widget.negativeAction != null) {
-      return FlatButton(
+      return MaterialButton(
         onPressed: () {
           Navigator.of(context).pop(); // To close the dialog
           widget.negativeAction?.call();
@@ -268,7 +268,7 @@ class __AlertDialogState extends State<__AlertDialog> {
                     _negativeButton(context),
                     _positiveButton(context),
                     widget.showNeutralButton==true
-                        ? FlatButton(
+                        ? MaterialButton(
                             onPressed: () {
                               Navigator.of(context).pop(); // To close the dialog
                               widget.neutralAction?.call();

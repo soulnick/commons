@@ -1,5 +1,5 @@
 import 'package:commons/commons.dart';
-import 'package:example/theme_changer.dart';
+import './theme_changer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
