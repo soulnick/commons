@@ -81,7 +81,7 @@ class _ListViewScreenState<T> extends State<ListViewScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: _showSearchBar
-            ? Theme.of(context).appBarTheme.color
+            ? Theme.of(context).appBarTheme.backgroundColor
             : Theme.of(context).primaryColor,
         leading: IconButton(
           icon: Icon(

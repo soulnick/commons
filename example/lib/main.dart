@@ -38,9 +38,9 @@ class MaterialAppWithTheme extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  final String title;
+  final String? title;
 
-  MyHomePage({Key key, this.title}) : super(key: key);
+  MyHomePage({Key? key, this.title}) : super(key: key);
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -91,7 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(widget.title??""),
       ),
       body: SafeArea(
         child: ListView(
@@ -262,7 +262,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             ListTile(
               onTap: () {
-                List<SimpleItem> list = List()
+                List<SimpleItem> list = []
                   ..add(SimpleItem(1, "One", remarks: "sub title"))
                   ..add(SimpleItem(2, "Teo", remarks: "sub title"))
                   ..add(SimpleItem(3, "Three", remarks: "sub title"))
@@ -278,6 +278,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     "List View Example",
                     list,
                     (item, index, searchValue) {
+                      final itt=item as SimpleItem;
                       return Card(
                         margin:
                             EdgeInsets.symmetric(vertical: 4, horizontal: 8),
@@ -288,13 +289,13 @@ class _MyHomePageState extends State<MyHomePage> {
                             print("$item at index $index");
                           },
                           title: highlightTitleTextWidget(
-                              context, item.title, searchValue),
+                              context, itt.title, searchValue),
                           subtitle: highlightSubTitleTextWidget(
-                              context, item.remarks, searchValue),
+                              context, itt.remarks, searchValue),
                         ),
                       );
                     },
-                    searchCriteria: (item, text) => item.title.contains(text),
+                    searchCriteria: (item, text) => (item as SimpleItem).title.contains(text),
                   ),
                 );
               },
@@ -352,7 +353,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             ListTile(
               onTap: () {
-                var options = List<Option>()
+                var options = <Option>[]
                   ..add(Option.edit())
                   ..add(Option.view())
                   ..add(Option.details())

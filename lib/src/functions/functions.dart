@@ -101,7 +101,7 @@ Future<String> getDeviceInfo() async {
 /// highlight title textfun
 Widget highlightTitleTextWidget(
   BuildContext context,
-  String string,
+  String? string,
   String word, {
   TextStyle? stringStyle,
   bool boldTitle = true,
@@ -117,7 +117,7 @@ Widget highlightTitleTextWidget(
 
   if (wordStyle == null) {
     wordStyle = stringStyle?.copyWith(
-      color: Theme.of(context).accentColor,
+      color: Theme.of(context).primaryColor,
       fontWeight: FontWeight.bold,
       fontStyle: FontStyle.italic,
       decoration: TextDecoration.underline,
@@ -126,11 +126,11 @@ Widget highlightTitleTextWidget(
 
   if (word == null || word.isEmpty) {
     return Text(
-      string,
+      string??"",
       style: stringStyle,
     );
   } else {
-    final spans = _getSpans(string, word, wordStyle);
+    final spans = _getSpans(string??"", word, wordStyle);
 
     return RichText(
       text: TextSpan(
@@ -155,7 +155,7 @@ Widget highlightSubTitleTextWidget(
 
   if (wordStyle == null) {
     wordStyle = stringStyle?.copyWith(
-      color: Theme.of(context).accentColor,
+      color: Theme.of(context).primaryColor,
       fontWeight: FontWeight.bold,
       fontStyle: FontStyle.italic,
       decoration: TextDecoration.underline,

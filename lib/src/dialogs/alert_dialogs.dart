@@ -129,7 +129,7 @@ class __AlertDialogState extends State<__AlertDialog> {
   }
 
   _getPositiveButtonColor() {
-    var color = Theme.of(context).accentColor;
+    var color = Theme.of(context).primaryColor;
     if (widget.confirm==true) {
       if (_confirmDeleteAction) {
         color = Colors.red;
@@ -164,7 +164,7 @@ class __AlertDialogState extends State<__AlertDialog> {
         },
         child: Text(
           widget.negativeText!,
-          style: TextStyle(color: Theme.of(context).accentColor),
+          style: TextStyle(color: Theme.of(context).primaryColor),
         ),
       );
     }
@@ -275,7 +275,7 @@ class __AlertDialogState extends State<__AlertDialog> {
                             },
                             child: Text(
                               widget.neutralText??"",
-                              style: TextStyle(color: Theme.of(context).accentColor),
+                              style: TextStyle(color: Theme.of(context).primaryColor),
                             ),
                           )
                         : SizedBox(),
