@@ -200,12 +200,12 @@ class __AlertDialogState extends State<__AlertDialog> {
         Container(
           width: _screenWidth >= 600 ? 500 : _screenWidth,
           padding: EdgeInsets.only(
-            top: 22.0,
+            top: 45.0 + 16.0,
             bottom: 16.0,
             left: 16.0,
             right: 16.0,
           ),
-          margin: EdgeInsets.only(top: 0.0),
+          margin: EdgeInsets.only(top: 55.0),
           decoration: new BoxDecoration(
             color: Theme.of(context).dialogBackgroundColor,
             shape: BoxShape.rectangle,
