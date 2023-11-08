@@ -285,7 +285,7 @@ class __AlertDialogState extends State<__AlertDialog> {
             ],
           ),
         ),
-        /*Positioned(
+        Positioned(
           left: 16.0,
           right: 16.0,
           child: CircleAvatar(
@@ -295,7 +295,7 @@ class __AlertDialogState extends State<__AlertDialog> {
                 ? widget.customIcon == null ? Text("") : widget.customIcon
                 : _dialogIcon,
           ),
-        ),*/
+        ),
       ],
     );
   }
